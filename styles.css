@@ -27,6 +27,7 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   color: var(--ink);
   background: var(--bg);
+  animation: pageFadeIn 0.55s ease-out both;
 }
 
 body.dark {
@@ -55,10 +56,13 @@ button {
   background: var(--accent);
   font-weight: 700;
   cursor: pointer;
+  transition: background 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 button:hover {
   background: var(--accent-dark);
+  box-shadow: 0 10px 24px rgba(76, 29, 149, 0.18);
+  transform: translateY(-1px);
 }
 
 button:disabled {
@@ -155,6 +159,7 @@ h2 {
   border-radius: 8px;
   background: linear-gradient(135deg, #7c3aed, #4f46e5);
   font-size: 22px;
+  animation: markPop 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .nav-list {
@@ -173,6 +178,7 @@ h2 {
   font-size: 15px;
   font-weight: 700;
   text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 
   & span {
     width: 18px;
@@ -184,6 +190,7 @@ h2 {
   &:hover {
     color: var(--accent);
     background: var(--soft-purple);
+    transform: translateX(4px);
   }
 }
 
@@ -220,6 +227,9 @@ h2 {
   border-radius: 8px;
   color: #fff;
   background: linear-gradient(150deg, #8b5cf6, #6d28d9);
+  animation: cardRise 0.65s ease-out 0.12s both;
+  transform-style: preserve-3d;
+  transition: box-shadow 0.28s ease, transform 0.5s ease;
 
   & strong {
     display: block;
@@ -231,6 +241,17 @@ h2 {
     margin: 18px 0 0;
     color: #f5f3ff;
     line-height: 1.45;
+  }
+
+  &:hover {
+    box-shadow: 0 22px 45px rgba(76, 29, 149, 0.26);
+    transform: perspective(900px) rotateY(180deg);
+  }
+
+  &:hover .card-illustration,
+  &:hover strong,
+  &:hover p {
+    transform: rotateY(180deg);
   }
 }
 
@@ -245,6 +266,12 @@ h2 {
   background: #fff;
   font-size: 30px;
   font-weight: 900;
+  transition: transform 0.5s ease;
+}
+
+.sidebar-card strong,
+.sidebar-card p {
+  transition: transform 0.5s ease;
 }
 
 .app-shell {
@@ -266,6 +293,7 @@ h2 {
   position: sticky;
   top: 0;
   z-index: 5;
+  animation: topbarDrop 0.5s ease-out both;
 }
 
 .header-identity {
@@ -354,10 +382,12 @@ h2 {
   background: transparent;
   font-size: 22px;
   text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
 
   &:hover {
     color: var(--accent);
     background: var(--soft-purple);
+    transform: rotate(8deg) scale(1.04);
   }
 
   & span {
@@ -417,6 +447,7 @@ h2 {
   min-width: 180px;
   padding: 12px 18px;
   text-align: right;
+  animation: cardRise 0.55s ease-out both;
 
   & strong {
     display: block;
@@ -444,6 +475,9 @@ h2 {
   position: relative;
   min-height: 104px;
   padding: 18px 18px 18px 88px;
+  animation: statFlipIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+  transform-style: preserve-3d;
+  transition: box-shadow 0.25s ease, transform 0.35s ease;
 
   &::before {
     position: absolute;
@@ -465,6 +499,23 @@ h2 {
     margin: 3px 0 5px;
     font-size: 28px;
   }
+
+  &:hover {
+    box-shadow: 0 20px 42px rgba(24, 31, 56, 0.14);
+    transform: perspective(900px) rotateY(8deg) translateY(-4px);
+  }
+}
+
+.stat:nth-child(2) {
+  animation-delay: 0.08s;
+}
+
+.stat:nth-child(3) {
+  animation-delay: 0.16s;
+}
+
+.stat:nth-child(4) {
+  animation-delay: 0.24s;
 }
 
 .stat:nth-child(1) {
@@ -512,6 +563,7 @@ h2 {
 
 .page.active-page {
   display: block;
+  animation: pageSlideIn 0.35s ease-out both;
 }
 
 .dashboard-grid,
@@ -530,6 +582,14 @@ h2 {
 .panel {
   padding: 20px;
   scroll-margin-top: 92px;
+  animation: panelFloatIn 0.55s ease-out both;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.panel:hover {
+  border-color: color-mix(in srgb, var(--accent) 28%, var(--line));
+  box-shadow: 0 18px 42px rgba(24, 31, 56, 0.1);
+  transform: translateY(-2px);
 }
 
 .large-panel,
@@ -586,6 +646,12 @@ label {
   font-weight: 800;
   text-decoration: none;
   background: var(--surface);
+  transition: background 0.2s ease, color 0.2s ease, transform 0.2s ease;
+}
+
+.text-button:hover {
+  background: var(--soft-purple);
+  transform: translateY(-1px);
 }
 
 .secondary-button {
@@ -620,6 +686,8 @@ label {
   gap: 12px;
   align-items: center;
   padding: 12px;
+  animation: listItemIn 0.45s ease-out both;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .activity-icon {
@@ -651,6 +719,16 @@ label {
   display: grid;
   gap: 10px;
   padding: 14px;
+  animation: listItemIn 0.45s ease-out both;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.activity-row:hover,
+.planner-item:hover,
+.compact-row:hover {
+  border-color: color-mix(in srgb, var(--accent) 30%, var(--line));
+  box-shadow: 0 12px 28px rgba(24, 31, 56, 0.08);
+  transform: translateX(3px);
 }
 
 .planner-item.completed {
@@ -715,6 +793,8 @@ label {
 .empty-state,
 .compact-row {
   padding: 12px;
+  animation: listItemIn 0.45s ease-out both;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .empty-state {
@@ -780,6 +860,8 @@ label {
   border: 1px solid var(--line);
   border-radius: 8px;
   background: color-mix(in srgb, var(--surface) 96%, var(--bg));
+  animation: calendarTileIn 0.42s ease-out both;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 
   & > span {
     display: grid;
@@ -801,6 +883,11 @@ label {
 
   &.has-events {
     border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  }
+
+  &:hover {
+    box-shadow: 0 10px 22px rgba(24, 31, 56, 0.08);
+    transform: translateY(-3px) rotateX(4deg);
   }
 }
 
@@ -856,6 +943,7 @@ label {
     height: 100%;
     border-radius: inherit;
     background: var(--accent);
+    animation: progressGlow 1.8s ease-in-out infinite;
     transition: width 0.2s ease;
   }
 }
@@ -888,6 +976,127 @@ label {
 
 .hidden {
   display: none;
+}
+
+@keyframes pageFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes markPop {
+  0% {
+    opacity: 0;
+    transform: scale(0.72) rotate(-12deg);
+  }
+  70% {
+    transform: scale(1.08) rotate(4deg);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) rotate(0);
+  }
+}
+
+@keyframes topbarDrop {
+  from {
+    opacity: 0;
+    transform: translateY(-14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes cardRise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes statFlipIn {
+  from {
+    opacity: 0;
+    transform: perspective(900px) rotateY(-18deg) translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: perspective(900px) rotateY(0) translateY(0);
+  }
+}
+
+@keyframes pageSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes panelFloatIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes listItemIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes calendarTileIn {
+  from {
+    opacity: 0;
+    transform: rotateX(-10deg) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: rotateX(0) translateY(0);
+  }
+}
+
+@keyframes progressGlow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 rgba(109, 40, 217, 0);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(109, 40, 217, 0.35);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
 @media (max-width: 1080px) {
