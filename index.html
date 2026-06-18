@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PlanIt - Smart Planner and Event Management</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <aside class="sidebar" aria-label="Primary navigation">
+    <div class="brand">
+      <div class="brand-mark">✓</div>
+      <div>
+        <strong>PlanIt</strong>
+        <span>Plan. Organize. Achieve.</span>
+      </div>
+    </div>
+
+    <nav class="nav-list">
+      <a class="nav-item active" href="/dashboard" data-route="dashboard"><span>⌂</span>Dashboard</a>
+      <a class="nav-item" href="/register" data-route="register"><span>＋</span>Register</a>
+      <a class="nav-item" href="/login" data-route="login"><span>◉</span>Login</a>
+      <a class="nav-item" href="/profile" data-route="profile"><span>◌</span>Profile</a>
+      <a class="nav-item" href="/tasks" data-route="tasks"><span>☷</span>Tasks</a>
+      <a class="nav-item" href="/events" data-route="events"><span>□</span>Events</a>
+      <a class="nav-item" href="/calendar" data-route="calendar"><span>▣</span>Calendar</a>
+      <a class="nav-item" href="/notifications" data-route="notifications"><span>♢</span>Notifications</a>
+      <a class="nav-item" href="/reports" data-route="reports"><span>▥</span>Reports</a>
+      <a class="nav-item" href="/settings" data-route="settings"><span>⚙</span>Settings</a>
+      <a class="nav-item" href="/localization" data-route="localization"><span>◎</span>Location</a>
+      <a class="nav-item" href="/admin" data-route="admin"><span>▤</span>Admin</a>
+    </nav>
+
+    <div class="api-panel">
+      <p>Connected services</p>
+      <div><span>☁</span><strong>Weather</strong><small>Open-Meteo</small></div>
+      <div><span>◉</span><strong>Countries</strong><small>Country list and codes</small></div>
+      <div><span>❝</span><strong>Quotes</strong><small>Daily inspiration</small></div>
+    </div>
+
+    <div class="sidebar-card">
+      <div class="card-illustration">✓</div>
+      <strong>Stay organized.<br>Stay productive.</strong>
+      <p>Plan your day and achieve more.</p>
+    </div>
+  </aside>
+
+  <main class="app-shell">
+    <div id="appHeader"></div>
+
+    <section id="dashboard" class="page active-page" data-page="dashboard">
+      <section class="welcome-row">
+        <div>
+          <h1>Welcome back, <span id="welcomeName">Jane</span>! <span>👋</span></h1>
+          <p>Here is what needs attention today.</p>
+        </div>
+        <div class="today-card">
+          <span>Current Date</span>
+          <strong id="todayDate"></strong>
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="Planner summary">
+        <article class="stat"><span>Total Tasks</span><strong id="totalTasks">0</strong><small>All your tasks</small></article>
+        <article class="stat"><span>Upcoming</span><strong id="upcomingEvents">0</strong><small>Next 7 days</small></article>
+        <article class="stat"><span>Completed</span><strong id="completedTasks">0</strong><small>This month</small></article>
+        <article class="stat"><span>Overdue</span><strong id="overdueTasks">0</strong><small>Needs attention</small></article>
+      </section>
+
+      <section class="dashboard-grid">
+        <section class="panel large-panel">
+          <div class="list-header">
+            <div>
+              <h2>Upcoming Activities</h2>
+              <p>Your nearest open tasks and scheduled events.</p>
+            </div>
+            <a class="text-button" href="/calendar" data-route="calendar">View Calendar</a>
+          </div>
+          <div id="activityList" class="activity-list"></div>
+        </section>
+
+        <section class="panel">
+          <div class="list-header">
+            <div>
+              <h2>Today's Tasks</h2>
+              <p>Quick status tracking.</p>
+            </div>
+            <a class="text-button" href="/tasks" data-route="tasks">View All</a>
+          </div>
+          <div id="todayTaskList" class="compact-list"></div>
+        </section>
+      </section>
+    </section>
+
+    <section id="register" class="page page-grid" data-page="register">
+      <section class="panel feature-card">
+        <div class="panel-heading">
+          <h2>Registration</h2>
+          <p>Create an account and save user details to the planner database.</p>
+        </div>
+        <form id="registerForm" class="form-grid" method="post">
+          <label for="registerName">Full name<input id="registerName" type="text" placeholder="Jane Doe" required></label>
+          <label for="registerEmail">Email<input id="registerEmail" type="email" placeholder="jane@example.com" required></label>
+          <label for="registerPassword">Password<input id="registerPassword" type="password" placeholder="Minimum 6 characters" required></label>
+          <label for="registerRole">Role<select id="registerRole" required>
+            <option value="Event Planner">Event Planner</option>
+            <option value="Students">Students</option>
+            <option value="HR (Human Resource)">HR (Human Resource)</option>
+            <option value="Employer">Employer</option>
+            <option value="Employee">Employee</option>
+            <option value="Self-employed">Self-employed</option>
+          </select></label>
+          <label for="registerCountry">Country<select id="registerCountry" required><option value="">Loading countries...</option></select></label>
+          <button type="submit">Create Account</button>
+          <a class="text-button auth-link" href="/login" data-route="login">Already have an account?</a>
+        </form>
+        <p id="registerStatus" class="status-text"></p>
+      </section>
+    </section>
+
+    <section id="login" class="page page-grid" data-page="login">
+      <section class="panel feature-card">
+        <div class="panel-heading">
+          <h2>Login</h2>
+          <p>Authenticate an existing account and start a local session.</p>
+        </div>
+        <form id="loginForm" class="form-grid" method="post">
+          <label for="loginEmail">Email<input id="loginEmail" type="email" placeholder="jane@example.com" required></label>
+          <label for="loginPassword">Password<input id="loginPassword" type="password" placeholder="Enter your password" required></label>
+          <button type="submit">Login</button>
+          <button id="logoutButton" class="secondary-button" type="button">Logout</button>
+          <a class="text-button auth-link" href="/register" data-route="register">Create a new account</a>
+        </form>
+        <p id="loginStatus" class="status-text"></p>
+      </section>
+    </section>
+
+    <section id="profile" class="page page-grid" data-page="profile">
+      <section class="panel feature-card">
+        <div class="panel-heading">
+          <h2>User Profile</h2>
+          <p>Profile edits, country, timezone, role, and avatar initials.</p>
+        </div>
+        <form id="profileForm" class="form-grid">
+          <label for="profileName">Display name<input id="profileName" type="text" required></label>
+          <label for="profileRole">Role<select id="profileRole" required>
+            <option value="Event Planner">Event Planner</option>
+            <option value="Students">Students</option>
+            <option value="HR (Human Resource)">HR (Human Resource)</option>
+            <option value="Employer">Employer</option>
+            <option value="Employee">Employee</option>
+            <option value="Self-employed">Self-employed</option>
+          </select></label>
+          <label for="countrySelect">Country<select id="countrySelect"></select></label>
+          <label for="timezoneSelect">Timezone<select id="timezoneSelect"></select></label>
+          <label class="wide" for="profileBio">Profile note<textarea id="profileBio" rows="3" placeholder="Short personal note"></textarea></label>
+          <button type="submit">Save Profile</button>
+        </form>
+      </section>
+    </section>
+
+    <section id="tasks" class="page page-grid" data-page="tasks">
+      <section class="panel feature-card wide-feature">
+        <div class="panel-heading">
+          <h2>Tasks</h2>
+          <p>Create, read, update, delete, prioritize, date, and track tasks.</p>
+        </div>
+        <form id="taskForm" class="form-grid detail-form">
+          <label for="taskTitle">Task title<input id="taskTitle" type="text" placeholder="Prepare event proposal" required></label>
+          <label for="taskDueDate">Due date<input id="taskDueDate" type="date" required></label>
+          <label for="taskPriority">Priority<select id="taskPriority"><option value="High">High</option><option value="Medium" selected>Medium</option><option value="Low">Low</option></select></label>
+          <label for="taskCategory">Category<input id="taskCategory" type="text" placeholder="Planning"></label>
+          <label for="taskStatus">Status<select id="taskStatus"><option value="Pending">Pending</option><option value="In Progress">In Progress</option><option value="Completed">Completed</option></select></label>
+          <label class="wide" for="taskDescription">Description<textarea id="taskDescription" rows="3" placeholder="Add important details"></textarea></label>
+          <button type="submit">Save Task</button>
+          <button id="cancelTaskEdit" class="secondary-button hidden" type="button">Cancel Edit</button>
+        </form>
+      </section>
+
+      <section class="panel feature-card wide-feature">
+        <div class="panel-heading">
+          <h2>Search and Filter</h2>
+          <p>Search tasks by status, priority, date, and category.</p>
+        </div>
+        <div class="filter-grid">
+          <label for="statusFilter">Status<select id="statusFilter"><option value="all">All</option><option value="Pending">Pending</option><option value="In Progress">In Progress</option><option value="Completed">Completed</option></select></label>
+          <label for="priorityFilter">Priority<select id="priorityFilter"><option value="all">All</option><option value="High">High</option><option value="Medium">Medium</option><option value="Low">Low</option></select></label>
+          <label for="categoryFilter">Category<input id="categoryFilter" type="text" placeholder="Planning"></label>
+          <label for="dateFilter">Date<input id="dateFilter" type="date"></label>
+        </div>
+      </section>
+
+      <section class="panel wide-feature">
+        <div class="list-header">
+          <div>
+            <h2>Tasks Overview</h2>
+            <p>Filtered task records.</p>
+          </div>
+          <button id="clearCompleted" class="secondary-button" type="button">Clear Completed</button>
+        </div>
+        <div id="taskList" class="item-list"></div>
+      </section>
+    </section>
+
+    <section id="events" class="page page-grid" data-page="events">
+      <section class="panel feature-card wide-feature">
+        <div class="panel-heading">
+          <h2>Events</h2>
+          <p>Create, edit, delete, categorize, and manage event details.</p>
+        </div>
+        <form id="eventForm" class="form-grid detail-form">
+          <label for="eventName">Event name<input id="eventName" type="text" placeholder="Vendor meeting" required></label>
+          <label for="eventDate">Event date<input id="eventDate" type="date" required></label>
+          <label for="eventTime">Time<input id="eventTime" type="time" required></label>
+          <label for="eventCategory">Category<input id="eventCategory" type="text" placeholder="Corporate"></label>
+          <label for="eventLocation">Location<input id="eventLocation" type="text" placeholder="Main Conference Hall"></label>
+          <label class="wide" for="eventNotes">Notes<textarea id="eventNotes" rows="3" placeholder="Agenda, guests, or reminders"></textarea></label>
+          <button type="submit">Save Event</button>
+          <button id="cancelEventEdit" class="secondary-button hidden" type="button">Cancel Edit</button>
+        </form>
+      </section>
+
+      <section class="panel wide-feature">
+        <div class="list-header">
+          <div>
+            <h2>Event Records</h2>
+            <p>Upcoming event records.</p>
+          </div>
+        </div>
+        <div id="eventList" class="item-list"></div>
+      </section>
+    </section>
+
+    <section id="calendar" class="page page-grid" data-page="calendar">
+      <section class="panel feature-card">
+        <div class="panel-heading">
+          <h2>Calendar</h2>
+          <p>Schedules, reminders, and Google Calendar sync.</p>
+        </div>
+        <div class="calendar-card">
+          <div class="calendar-toolbar">
+            <button id="previousMonth" class="icon-button calendar-nav-button" type="button" aria-label="Previous month">‹</button>
+            <strong id="calendarMonth">Calendar</strong>
+            <button id="nextMonth" class="icon-button calendar-nav-button" type="button" aria-label="Next month">›</button>
+          </div>
+          <div class="calendar-weekdays" aria-hidden="true">
+            <span>Sun</span>
+            <span>Mon</span>
+            <span>Tue</span>
+            <span>Wed</span>
+            <span>Thu</span>
+            <span>Fri</span>
+            <span>Sat</span>
+          </div>
+          <div id="calendarGrid" class="calendar-grid" aria-label="Monthly calendar"></div>
+          <div id="calendarList" class="compact-list"></div>
+          <div class="calendar-sync-actions">
+            <button id="connectGoogleCalendar" type="button">Connect Google Calendar</button>
+            <button id="syncCalendar" type="button">Sync to Google Calendar</button>
+          </div>
+          <p id="calendarSyncStatus" class="status-text"></p>
+        </div>
+      </section>
+    </section>
+
+    <section id="notifications" class="page page-grid" data-page="notifications">
+      <section class="panel feature-card">
+        <div class="panel-heading">
+          <h2>Notifications</h2>
+          <p>Due alerts, reminders, overdue messages, and system notices.</p>
+        </div>
+        <div id="notificationsList" class="compact-list"></div>
+      </section>
+    </section>
+
+    <section id="reports" class="page page-grid" data-page="reports">
+      <section class="panel feature-card">
+        <div class="panel-heading">
+          <h2>Reports</h2>
+          <p>Productivity, task statistics, event statistics, and progress tracking.</p>
+        </div>
+        <div class="progress-block">
+          <div class="progress-row"><span>Task completion</span><strong id="completionRate">0%</strong></div>
+          <div class="progress-track"><div id="completionBar"></div></div>
+        </div>
+        <div id="reportList" class="compact-list"></div>
+      </section>
+    </section>
+
+    <section id="settings" class="page page-grid" data-page="settings">
+      <section class="panel feature-card">
+        <div class="panel-heading">
+          <h2>Settings</h2>
+          <p>Theme, notification preferences, timezone, and user preferences.</p>
+        </div>
+        <form id="settingsForm" class="settings-list">
+          <label class="toggle-row" for="darkModeSetting"><input id="darkModeSetting" type="checkbox">Dark theme</label>
+          <label class="toggle-row" for="taskAlertsSetting"><input id="taskAlertsSetting" type="checkbox">Task due alerts</label>
+          <label class="toggle-row" for="eventRemindersSetting"><input id="eventRemindersSetting" type="checkbox">Event reminders</label>
+          <button type="submit">Save Settings</button>
+        </form>
+      </section>
+    </section>
+
+    <section id="localization" class="page page-grid" data-page="localization">
+      <section class="panel feature-card">
+        <div class="panel-heading">
+          <h2>Location</h2>
+          <p>Country, flag, calling code, and timezone suggestions.</p>
+        </div>
+        <div class="country-card">
+          <span id="countryFlag">🇺🇸</span>
+          <strong id="countryName">United States</strong>
+          <small id="countryCode">+1</small>
+          <p id="timezoneSuggestion">Suggested timezone: America/New_York</p>
+        </div>
+      </section>
+    </section>
+
+    <section id="admin" class="page page-grid" data-page="admin">
+      <section class="panel feature-card">
+        <div class="panel-heading">
+          <h2>Admin</h2>
+          <p>Manage users, view system statistics, and monitor activity.</p>
+        </div>
+        <div id="adminStats" class="compact-list"></div>
+        <button id="removeInactive" class="secondary-button" type="button">Remove Inactive Users</button>
+      </section>
+    </section>
+
+    <div id="appFooter"></div>
+  </main>
+
+  <script type="module" src="/main.mjs"></script>
+</body>
+</html>

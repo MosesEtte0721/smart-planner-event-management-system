@@ -1,0 +1,16 @@
+{
+  "name": "smart-planner-event-management-system",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "backend": "node server.mjs",
+    "build": "vite build",
+    "preview": "vite preview",
+    "start": "node server.mjs"
+  },
+  "devDependencies": {
+    "vite": "^8.0.16"
+  }
+}
